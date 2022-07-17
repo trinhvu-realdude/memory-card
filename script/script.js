@@ -1,51 +1,10 @@
-const cards = [
-    {
-        name: "chesseburger",
-        img: "img/cheeseburger.png"
-    }, {
-        name: "fries",
-        img: "img/fries.png"
-    }, {
-        name: "hotdog",
-        img: "img/hotdog.png"
-    }, {
-        name: "ice-cream",
-        img: "img/ice-cream.png"
-    }, {
-        name: "milkshake",
-        img: "img/milkshake.png"
-    }, {
-        name: "pizza",
-        img: "img/pizza.png"
-    }, {
-        name: "chesseburger",
-        img: "img/cheeseburger.png"
-    }, {
-        name: "fries",
-        img: "img/fries.png"
-    }, {
-        name: "hotdog",
-        img: "img/hotdog.png"
-    }, {
-        name: "ice-cream",
-        img: "img/ice-cream.png"
-    }, {
-        name: "milkshake",
-        img: "img/milkshake.png"
-    }, {
-        name: "pizza",
-        img: "img/pizza.png"
-    }
-];
+CARDS.sort(() => 0.5 - Math.random());
 
-cards.sort(() => 0.5 - Math.random());
-
-const chosenCards = [];
+let chosenCards = [];
 
 function createBoard() {
-    const container = document.getElementById("container");
-
-    for (let i = 0; i < cards.length; i++) {
+    const container = document.getElementById("holder");
+    for (let i = 0; i < CARDS.length; i++) {
         const cardHolder = document.createElement("div");
         cardHolder.className = "card-holder";
         cardHolder.setAttribute("data-id", i);
@@ -55,11 +14,11 @@ function createBoard() {
         
         const cardFront = document.createElement("div");
         cardFront.className = "card-front";
-        cardFront.innerHTML = `<img src='img/hellomdfk.jpg' alt='hellomdfk' style='width:100px;height:100px;' data-id="${i}" onclick="flipCard(${i}, '${cards[i].name}')">`
+        cardFront.innerHTML = `<img src='img/dangyeu.jpg' alt='dangyeu' style='width:100px;height:100px;' data-id="${i}" onclick="flipCard(${i}, '${CARDS[i].name}')">`
 
         const cardBack = document.createElement("div");
         cardBack.className = "card-back";
-        cardBack.innerHTML = `<img src="${cards[i].img}" alt="${cards[i].name}" style="width:100px;height:100px;">`;
+        cardBack.innerHTML = `<img src="${CARDS[i].img}" alt="${CARDS[i].name}" style="width:100px;height:100px;">`;
 
         cardHolderInner.append(cardFront);
         cardHolderInner.append(cardBack);
@@ -88,9 +47,21 @@ function checkMatch() {
     const firstCard = chosenCards[0];
     const secondCard = chosenCards[1];
 
-    console.log(firstCard, secondCard);
+    const firstInner = document.getElementById("card-" + firstCard.id);
+    const secondInner = document.getElementById("card-" + secondCard.id);
+
+    if (firstCard.name !== secondCard.name) {
+        setTimeout(() => { 
+            firstInner.style.transform = "rotateY(360deg)"; 
+            secondInner.style.transform = "rotateY(360deg)"; 
+        }, 500);
+    } else {
+        setTimeout(() => { 
+            firstInner.style.display = "none";
+            secondInner.style.display = "none";
+        }, 1000);
+    }
+    chosenCards = [];
 }
 
 createBoard();
-
-//     setTimeout(() => { inner.style.transform = "rotateY(360deg)"; }, 1000)
